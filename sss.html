@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renazzo Mobilya | SSS</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 600px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .logo { width: 220px; height: auto; margin-bottom: 15px; }
+        h1 { font-size: 20px; text-transform: uppercase; letter-spacing: 2px; color: #333; margin: 0; }
+        .soru-blok { border-left: 6px solid #ff0000; padding: 15px 20px; margin-bottom: 25px; background-color: #fafafa; border-radius: 0 8px 8px 0; }
+        .soru { font-weight: bold; font-size: 17px; color: #000; margin-bottom: 8px; min-height: 20px; }
+        .cevap { font-size: 15px; line-height: 1.6; min-height: 20px; }
+        .c1 { color: #5D4037; } .c2 { color: #0D47A1; } .c3 { color: #1B5E20; }
+        .c4 { color: #E65100; } .c5 { color: #4A148C; } .c6 { color: #880E4F; } .c7 { color: #B71C1C; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="logo.png" alt="Renazzo" class="logo" onerror="this.src='https://renazzomobilya.com/Data/EditorFiles/logo.png'">
+        <h1>Sıkça Sorulan Sorular</h1>
+    </div>
+    <div id="sss-alan"></div>
+</div>
+
+<script>
+    const sssVerisi = [
+        { q: "1- İşletmeniz Nerede?", a: "Balıkesir Edremit'te üretim yapmaktayız.", cl: "c1" },
+        { q: "2- Nerelere Gönderiyorsunuz?", a: "Tüm Türkiye’ye Ücretsiz Olarak gönderim yapıyoruz.", cl: "c2" },
+        { q: "3- Ürünlerinizin Ham Maddesi Nedir?", a: "Masif Ahşap olup, fırınlanmış Rus Çamı kullanmaktayız. Ayrıca %100 MDF ürünlerimiz de bulunmaktadır.", cl: "c3" },
+        { q: "4- Kargo Hasarları İçin Önleminiz Nedir?", a: "Tedarik süreci garantimiz altındadır. Hasarlı parçaları ücretsiz temin ediyoruz.", cl: "c4" },
+        { q: "5- Özel Üretim Yapıyor musunuz?", a: "Evet, dilediğiniz ölçüde üretim yapabilmekteyiz.", cl: "c5" },
+        { q: "6- Toplu Projeler Yapıyor musunuz?", a: "Evet; otel, villa gibi mimari projelerde yer almaktayız.", cl: "c6" },
+        { q: "7- Size Nasıl Güvenebiliriz?", a: "Trendyol, Hepsiburada ve N11 gibi pazaryerlerinde mağazalarımız aktif ve faaliyettedir.", cl: "c7" }
+    ];
+
+    const alan = document.getElementById('sss-alan');
+
+    async function daktilo(hedef, metin, hiz) {
+        for (let i = 0; i < metin.length; i++) {
+            hedef.innerHTML += metin.charAt(i);
+            await new Promise(res => setTimeout(res, hiz));
+        }
+    }
+
+    async function sssBaslat() {
+        for (let veri of sssVerisi) {
+            const blok = document.createElement('div');
+            blok.className = 'soru-blok';
+            const sDiv = document.createElement('div');
+            sDiv.className = 'soru';
+            const cDiv = document.createElement('div');
+            cDiv.className = 'cevap ' + veri.cl;
+            
+            blok.appendChild(sDiv);
+            blok.appendChild(cDiv);
+            alan.appendChild(blok);
+
+            await daktilo(sDiv, veri.q, 30);
+            await daktilo(cDiv, veri.a, 20);
+            await new Promise(res => setTimeout(res, 500));
+        }
+    }
+    window.onload = sssBaslat;
+</script>
+</body>
+</html>
